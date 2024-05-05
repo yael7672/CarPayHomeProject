@@ -132,11 +132,14 @@ export class MenuComponent implements AfterViewInit, OnInit {
       this.showChangeTypeOfField = true
       this.showSetValuesOfFiled = false
       this.ShowEditPropertiesOfFiled = false
+      this.showSetValuesOfButton= false
+
     }
     if (elementType == "checkBox" || elementType == "selectBox" || elementType == "multiSelectBox") {
       this.showSetValuesOfFiled = true
       this.ShowEditPropertiesOfFiled = true
       this.showChangeTypeOfField = false
+      this.showSetValuesOfButton= false
     }
 
     if (elementType == "button") {
@@ -270,7 +273,6 @@ export class MenuComponent implements AfterViewInit, OnInit {
     this.valuesOfFormToUpdate = [];
     for (const item of this.elementsArr) {
       for (const key in item) {
-
         if (key == 'type') {
           if (item['type'] != 'title' && item['type'] != 'subtitle' && item['type'] != 'button') {
             const itemType = item['type'];
