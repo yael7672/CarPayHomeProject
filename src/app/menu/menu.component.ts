@@ -65,9 +65,9 @@ export class MenuComponent implements AfterViewInit, OnInit {
   filesSelectedInSelectionButton: string[] = [];
   imageSelectedInSelectionButton: string[] = [];
   fileOrImageInSelectedInSelectionButton: string[] = [];
-  imageBase64:any
-  fileBase64:any
-  elementBackgroundColor:any
+  imageBase64: any
+  fileBase64: any
+  elementBackgroundColor: any
   constructor(private appService: AppService, public elementStateService: ElementStateService
     , private datePipe: DatePipe, private userService: UserService) {
     this.appService.getNavBar().subscribe(res => {
@@ -124,6 +124,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
     this.elementColor = this.elementsArr[this.serialNumber].elementColor
     this.elementSize = this.elementsArr[this.serialNumber].elementSize
     this.elementValue = this.elementsArr[this.serialNumber].elementValue
+    this.elementName = this.elementsArr[this.serialNumber].elementName
     if (elementType == "digitalSignature") {
       this.sig = new SignaturePad(this.canvas.nativeElement);
     }
@@ -141,7 +142,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
     if (elementType == "button") {
       this.showSetValuesOfButton = true
       this.showSetValuesOfFiled = false
-      this.ShowEditPropertiesOfFiled = false
+      this.ShowEditPropertiesOfFiled = true
       this.showChangeTypeOfField = false
     }
     if (elementType == "title" || elementType == "subtitle") {
@@ -269,26 +270,29 @@ export class MenuComponent implements AfterViewInit, OnInit {
     this.valuesOfFormToUpdate = [];
     for (const item of this.elementsArr) {
       for (const key in item) {
-        if (key === 'type') {
-          const itemType = item['type'];
-          const existingValueIndex = this.valuesOfFormToUpdate.findIndex(
-            (existingItem) => existingItem.type === itemType
-          );
 
-          if (existingValueIndex !== -1) {
-            if (Array.isArray(this.valuesOfFormToUpdate[existingValueIndex].value)) {
-              this.valuesOfFormToUpdate[existingValueIndex].value.push(item['value']);
+        if (key == 'type') {
+          if (item['type'] != 'title' && item['type'] != 'subtitle' && item['type'] != 'button') {
+            const itemType = item['type'];
+            const existingValueIndex = this.valuesOfFormToUpdate.findIndex(
+              (existingItem) => existingItem.type == itemType
+            );
+
+            if (existingValueIndex !== -1) {
+              if (Array.isArray(this.valuesOfFormToUpdate[existingValueIndex].value)) {
+                this.valuesOfFormToUpdate[existingValueIndex].value.push(item['value']);
+              } else {
+                this.valuesOfFormToUpdate[existingValueIndex].value = [
+                  this.valuesOfFormToUpdate[existingValueIndex].value,
+                  item['value']
+                ];
+              }
             } else {
-              this.valuesOfFormToUpdate[existingValueIndex].value = [
-                this.valuesOfFormToUpdate[existingValueIndex].value,
-                item['value']
-              ];
+              this.valuesOfFormToUpdate.push({
+                type: itemType,
+                value: item['value'] ? item['value'] : ((item['elementValue'] ? item['elementValue'] : item['elementsValues'])? item['elementsValues']:"")
+              });
             }
-          } else {
-            this.valuesOfFormToUpdate.push({
-              type: itemType,
-              value: item['value'] ? item['value'] : item['elementValue'] ? item['elementValue'] : ''
-            });
           }
         }
       }

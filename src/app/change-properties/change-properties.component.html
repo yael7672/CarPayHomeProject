@@ -51,7 +51,7 @@
     <div class="property">
       <label for="editHeaderOfButton">Set header for API:</label>
       <input class="form-control" required id="editHeaderOfButton" [(ngModel)]="headersRequest"
-        placeholder="{{element.value}}">
+        placeholder="{{element?.value}}">
     </div>
     <div class="button-container">
       <button type="button" class="btn btn-primary" (click)="sendAllValues(apiRequest,headersRequest)">

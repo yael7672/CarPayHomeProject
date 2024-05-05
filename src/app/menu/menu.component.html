@@ -43,7 +43,7 @@
             <button *ngSwitchCase="'button'" class="btn" (click)="changeProperties(element.type,i,$event)"
               (dblclick)="updateValuesOfForm()" [(ngModel)]="element.value"
               (input)="setValueOfProperty(element.value,element)" [style.color]="element.elementColor"
-              [style.fontSize.px]="element.elementSize">Click me</button>
+              [style.fontSize.px]="element.elementSize">{{element.elementName || 'לחץ כאן כדי לשנות את הערך'}}</button>
             <input *ngSwitchCase="'text'" (click)="changeProperties(element.type,i,$event)" [(ngModel)]="element.value"
               class="form-control" (input)="setValueOfProperty(element.value,element)"
               [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize"
