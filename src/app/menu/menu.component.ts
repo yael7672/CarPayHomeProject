@@ -69,13 +69,9 @@ export class MenuComponent implements AfterViewInit, OnInit {
   fileBase64:any
   elementBackgroundColor:any
   constructor(private appService: AppService, public elementStateService: ElementStateService
-
     , private datePipe: DatePipe, private userService: UserService) {
     this.appService.getNavBar().subscribe(res => {
       this.showNavBar = res ? res : false;
-    })
-    this.elementStateService.getKindOfElement().subscribe(res => {
-      this.kindOfElement = res ? res : false;
     })
     this.elementsArrFromSs = sessionStorage.getItem("elementsArr")
     if (this.elementsArrFromSs) {

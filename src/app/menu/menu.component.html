@@ -54,8 +54,7 @@
               placeholder="{{element.value}}" cdkDragHandle>
             <div class="checkbox" *ngSwitchCase="'checkBox'" (click)="changeProperties(element.type,i ,$event)"
               (input)="setValueOfProperty(element.value,element)"  cdkDragHandle>
-              <input type="checkbox" id="{{ element.name }}" [style.color]="element.elementColor"
-              [style.fontSize.px]="element.elementSize" name="{{ element.name }}" [(ngModel)]="element.value"
+              <input type="checkbox" id="{{ element.name }}" name="{{ element.name }}" [(ngModel)]="element.value"
                 value="{{element.elementValue}}">
               <label for="{{ element.name }}"> {{element.elementText || 'לחץ כאן כדי לשנות את הערך'}}</label><br>
             </div>

@@ -213,24 +213,6 @@ button[disabled] {
   }
 }
 
-/* h2.JustMinute {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  font-size: small;
-
-}
-
-img#pop-up-no-data {
-  width: 65px !important;
-  height: 65px !important;
-}
-
-img#pop-up-loading {
-  width: 55px !important;
-  height: 55px !important;
-} */
-
 
 .disabled-button {
   background-color: rgb(254, 225, 195);

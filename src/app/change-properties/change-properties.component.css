@@ -25,7 +25,6 @@ label {
     align-items: flex-start;
     direction: ltr;
     margin-left: 10px;
-    /* Optional: Add left margin if needed */
 }
 
 .button-container {

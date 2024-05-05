@@ -76,9 +76,9 @@ export class ChangePropertiesComponent {
     debugger
     this.updateSize(val);
   }
+
   changeBackgroudColorE(newBackgroudColor: any){
     this.backgroudColorChange.emit({ element: this.selected, backgroudColor: newBackgroudColor });
-
   }
 
   updateColor(newColor: any) {
@@ -89,9 +89,9 @@ export class ChangePropertiesComponent {
   updateSize(newSize: any) {
     this.sizeChange.emit({ element: this.selected, size: newSize });
   }
+
   sendAllValues(apiRequest: any,headersRequest: any){
     this.sendValues.emit({ api: apiRequest, headers: headersRequest });
-
   }
 
 
@@ -100,7 +100,6 @@ export class ChangePropertiesComponent {
   }
 
   addValuesToFiled(elementText:any,elementValue:any){
-    debugger
     this.addValues.emit({ element: this.selected, text:elementText, values: elementValue });
   }
 
@@ -110,7 +109,6 @@ export class ChangePropertiesComponent {
 
   checkHttpAddress() {
     debugger
-    // בדיקת תקינות הקלט
     if (!this.isValidHttpAddress(this.apiRequest)) {
       this.validationError = true;
     } else {
