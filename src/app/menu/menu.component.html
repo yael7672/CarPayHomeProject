@@ -34,11 +34,11 @@
               (input)="setValueOfProperty(element.value,element)" [style.color]="element.elementColor"
               [style.fontSize.px]="element.elementSize" cdkDragHandle>
             <input *ngSwitchCase="'image'" (change)="changeProperties(element.type,i ,$event)"
-            [style.background]="element.elementBackgroundColor"       [(ngModel)]="element.value" (input)="setValueOfProperty(element.value,element)"
-              [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize" type="file"
+            [style.background]="element.elementBackgroundColor" [(ngModel)]="element.value" (input)="setValueOfProperty(element.value,element)"
+              [style.color]="element.elementColor"  type="file"
               accept="image/*" cdkDragHandle>
             <div class="col-md-3" *ngSwitchCase="'image'">
-              <img *ngIf="hideImage" src="{{imageSelectedInSelectionButton}}" height="70" width="70">
+              <img *ngIf="hideImage" src="{{imageSelectedInSelectionButton}}"  [style.height.px]="element.elementSize"  [style.width.px]="element.elementSize">
             </div>
             <button *ngSwitchCase="'button'" class="btn" (click)="changeProperties(element.type,i,$event)"
               (dblclick)="updateValuesOfForm()" [(ngModel)]="element.value"
@@ -52,11 +52,10 @@
               class="form-control" (input)="setValueOfProperty(element.value,element)"
               [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize"
               placeholder="{{element.value}}" cdkDragHandle>
-           
             <div class="checkbox" *ngSwitchCase="'checkBox'" (click)="changeProperties(element.type,i ,$event)"
-              (input)="setValueOfProperty(element.value,element)" [style.color]="element.elementColor"
-              [style.fontSize.px]="element.elementSize" cdkDragHandle>
-              <input type="checkbox" id="{{ element.name }}" name="{{ element.name }}" [(ngModel)]="element.value"
+              (input)="setValueOfProperty(element.value,element)"  cdkDragHandle>
+              <input type="checkbox" id="{{ element.name }}" [style.color]="element.elementColor"
+              [style.fontSize.px]="element.elementSize" name="{{ element.name }}" [(ngModel)]="element.value"
                 value="{{element.elementValue}}">
               <label for="{{ element.name }}"> {{element.elementText || 'לחץ כאן כדי לשנות את הערך'}}</label><br>
             </div>
@@ -91,12 +90,11 @@
               [style.fontSize.px]="element.elementSize" placeholder="{{element.value}}" cdkDragHandle />
 
             <input class="form-control" *ngSwitchCase="'uploadFile'" (change)="changeProperties(element.type,i,$event)"
-              [(ngModel)]="element.value" (input)="setValueOfProperty(element.value,element)"
-              [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize" type="file"
+              [(ngModel)]="element.value" (input)="setValueOfProperty(element.value,element)"type="file"
               accept=".pdf,.doc,.docx,.xml" cdkDragHandle>
 
             <div class="col-md-3" *ngSwitchCase="'uploadFile'">
-              <img *ngIf="hidePDF" src="../../assets/images/PDF ICON.png" height="70" width="70">
+              <img *ngIf="hidePDF" src="../../assets/images/PDF ICON.png" [style.height.px]="element.elementSize"  [style.width.px]="element.elementSize">
             </div>
 
             <div class="element-container">
