@@ -1,0 +1,112 @@
+<div cdkDropListGroup>
+  <div class="container-fluid" cdkDropListGroup>
+    <div class="row">
+      <!-- <div class="col-md-3" style="border: 1px solid #ccc;"> -->
+      <div class="page-wrapper chiller-theme toggled">
+        <nav id="sidebar" class="sidebar-wrapper">
+          <app-tab-nav-menu [tabLink]="tabLink"></app-tab-nav-menu>
+          <app-change-properties *ngIf="showNavBar" (typeChange)="updateFiledType($event.element, $event.type)"
+            (addValues)="addValuesToFiled($event.element,$event.text, $event.values)"
+            (setSetting)="setSettingToFiled($event.element,$event.name)" [apiRequest]="apiRequest"
+            (backgroudColorChange)="updateElementBackgroundColor($event.element, $event.backgroudColor)"      [headersRequest]="headersRequest" (colorChange)="updateElementColor($event.element, $event.color)"
+         (sendValues)="updateValuesOfForm()" (sizeChange)="updateElementSize($event.element, $event.size)" [selected]="selectedElement"
+        [elementBackgroundColor]="elementBackgroundColor"    [elementName]="elementName" [elementValue]="elementValue" [elementSize]="elementSize"
+            [elementColor]="elementColor" [ifShowChangeType]="showChangeTypeOfField"
+            [ifShowSetValuesOfButton]="showSetValuesOfButton" [ifShowEditPropertiesOfFiled]="ShowEditPropertiesOfFiled"
+            [ifShowEditValuesOfFiled]="showSetValuesOfFiled"></app-change-properties>
+          <app-add-element *ngIf="!showNavBar" [btnMenu]="buttonMenu" [elements]="elementsArr"
+            [field]="fieldArr"></app-add-element>
+        </nav>
+      </div>
+
+      <div class="form" cdkDropListGroup>
+        <!-- <h1>Dynamic Form</h1> -->
+        <div *ngFor="let element of elementsArr let i = index" cdkDrag cdkDragBoundary=".form"
+          class="element-container">
+          <div [ngSwitch]="element.type" class="element">
+            <h1 *ngSwitchCase="'title'" (click)="changeProperties(element.type,i ,$event)" [(ngModel)]="element.value"
+              [style.color]="element.elementColor" (input)="setValueOfProperty(element.value,element) "
+       [style.background]="element.elementBackgroundColor"       [style.fontSize.px]="element.elementSize"> {{ element.elementName ||"title"}}</h1>
+            <h3 *ngSwitchCase="'subtitle'" (click)="changeProperties(element.type,i,$event)" [(ngModel)]="element.value"
+              (input)="setValueOfProperty(element.value,element)" [style.color]="element.elementColor"
+              [style.fontSize.px]="element.elementSize">{{ element.elementName ||"subTitle"}}</h3>
+            <input *ngSwitchCase="'field'" (click)="changeProperties(element.type,i,$event)" [(ngModel)]="element.value"
+              (input)="setValueOfProperty(element.value,element)" [style.color]="element.elementColor"
+              [style.fontSize.px]="element.elementSize" cdkDragHandle>
+            <input *ngSwitchCase="'image'" (change)="changeProperties(element.type,i ,$event)"
+            [style.background]="element.elementBackgroundColor"       [(ngModel)]="element.value" (input)="setValueOfProperty(element.value,element)"
+              [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize" type="file"
+              accept="image/*" cdkDragHandle>
+            <div class="col-md-3" *ngSwitchCase="'image'">
+              <img *ngIf="hideImage" src="{{imageSelectedInSelectionButton}}" height="70" width="70">
+            </div>
+            <button *ngSwitchCase="'button'" class="btn" (click)="changeProperties(element.type,i,$event)"
+              (dblclick)="updateValuesOfForm()" [(ngModel)]="element.value"
+              (input)="setValueOfProperty(element.value,element)" [style.color]="element.elementColor"
+              [style.fontSize.px]="element.elementSize">Click me</button>
+            <input *ngSwitchCase="'text'" (click)="changeProperties(element.type,i,$event)" [(ngModel)]="element.value"
+              class="form-control" (input)="setValueOfProperty(element.value,element)"
+              [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize"
+              placeholder="{{element.value}}" cdkDragHandle>
+            <input *ngSwitchCase="'inner'" (click)="changeProperties(element.type,i,$event)" [(ngModel)]="element.value"
+              class="form-control" (input)="setValueOfProperty(element.value,element)"
+              [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize"
+              placeholder="{{element.value}}" cdkDragHandle>
+           
+            <div class="checkbox" *ngSwitchCase="'checkBox'" (click)="changeProperties(element.type,i ,$event)"
+              (input)="setValueOfProperty(element.value,element)" [style.color]="element.elementColor"
+              [style.fontSize.px]="element.elementSize" cdkDragHandle>
+              <input type="checkbox" id="{{ element.name }}" name="{{ element.name }}" [(ngModel)]="element.value"
+                value="{{element.elementValue}}">
+              <label for="{{ element.name }}"> {{element.elementText || 'לחץ כאן כדי לשנות את הערך'}}</label><br>
+            </div>
+            <div class="selectBox" *ngSwitchCase="'selectBox'" (click)="changeProperties(element.type,i,$event)"
+              (input)="setValueOfProperty(element.value,element)" 
+            cdkDragHandle>
+              <select id="inputState" class="form-control" [(ngModel)]="element.value">
+                <option *ngFor="let val of element.elementsValues"  [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize" value={{val.elementValue}}>{{val.elementText|| 
+                 'לחץ כאן כדי לשנות את הערך'}}
+                </option>
+              </select>
+            </div>
+            <div class="example-block" (click)="changeProperties(element.type,i,$event)"
+              *ngSwitchCase="'multiSelectBox'">
+              <div class="example-block__item">
+                <ngx-select [multiple]="true" [items]="element.elementsValues" [disabled]="ngxDisabled"
+                  (input)="setValueOfProperty(element.value,element)" [style.color]="element.elementColor"
+                  [style.fontSize.px]="element.elementSize" cdkDragHandle [(ngModel)]="MoreValueSelectedArr"
+                  [autoClearSearch]="true" placeholder="לא נבחרו ערכים נוספים" ngModel name="MoreValueSelected"
+                  #MoreValueSelected="ngModel">
+                </ngx-select>
+              </div>
+            </div>
+            <input type="date" id="date" name="date" (click)="changeProperties(element.type,i,$event)"
+              value="{{todayDate| date: 'yyyy-MM-dd' }}" *ngSwitchCase="'date'" class="form-control"
+              [(ngModel)]="element.value" (input)="setValueOfProperty(element.value,element)"
+              [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize"
+              placeholder="{{element.value}}" cdkDragHandle />
+            <input type="datetime-local" id="datetime" name="datetime" (click)="changeProperties(element.type,i,$event)"
+              *ngSwitchCase="'dateTime'" class="form-control" [(ngModel)]="element.value"
+              (input)="setValueOfProperty(element.value,element)" [style.color]="element.elementColor"
+              [style.fontSize.px]="element.elementSize" placeholder="{{element.value}}" cdkDragHandle />
+
+            <input class="form-control" *ngSwitchCase="'uploadFile'" (change)="changeProperties(element.type,i,$event)"
+              [(ngModel)]="element.value" (input)="setValueOfProperty(element.value,element)"
+              [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize" type="file"
+              accept=".pdf,.doc,.docx,.xml" cdkDragHandle>
+
+            <div class="col-md-3" *ngSwitchCase="'uploadFile'">
+              <img *ngIf="hidePDF" src="../../assets/images/PDF ICON.png" height="70" width="70">
+            </div>
+
+            <div class="element-container">
+              <canvas *ngSwitchCase="'digitalSignature'"  (mouseup)="startDrawing()" cdkDragHandle
+                [style.color]="element.elementColor" [style.fontSize.px]="element.elementSize"
+                [style.zIndex]="1999"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

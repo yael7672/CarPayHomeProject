@@ -1,0 +1,73 @@
+<!-- <ul id="Company-MegaMenu" class="megamenu-tabs">
+  <li (click)="isBtnField(btn?.type) ? functions(btn?.type) : ''"  *ngFor="let btn of btnsMenu" id="{{btn?.type}}">
+    <span class="list-icon"><i class="{{btn?.icon}} mm-tab-list-icon"></i></span>
+    <span class="list-title"> {{btn?.name}} </span>
+    <ng-container *ngIf="btn.type === 'field'">
+      <select [(ngModel)]="selectedField" class="field-select" >
+        <option *ngFor="let option of fieldOptions"  value="{{option.value}}">{{option.label}}</option>
+      </select>
+    </ng-container>
+    <i class="fa fa-plus" aria-hidden="true"></i>
+  </li>
+</ul> -->
+
+
+
+<div class="sidebar-content">
+  <!-- <div class="sidebar-search">
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="Search...">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+  <!-- <div class="sidebar-menu">
+    <ul>
+      <li class="header-menu" >
+        <span>General</span>
+      </li>
+      <li  [ngClass]="{'sidebar-dropdown ': btn.type === 'field'}"  (click)="isBtnField(btn?.type) ? functions(btn?.type) : ''"  *ngFor="let btn of btnsMenu" id="{{btn?.type}}">
+        <a href="#">
+          <i class="{{btn?.icon}}"></i>
+          <span>{{btn?.name}}</span>
+          <span class="badge badge-pill badge-warning">New</span>
+        </a>
+        <div class="sidebar-submenu " [ngClass]="{'active': isBtnField(btn.type)}">
+          <ul>
+            <li *ngFor="let option of fieldOptions">
+              <a href="#">
+                <span class="badge badge-pill badge-success">{{ option.label }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>  -->
+
+  <div class="sidebar-menu">
+    <ul>
+      <li *ngFor="let btn of btnsMenu" [ngClass]="{'sidebar-dropdown': btn.type == 'field'}">
+        <a (click)="isBtnField(btn?.type) ? functions(btn?.type) : ''">
+          <i class="{{btn.icon}}"></i>
+          <span>{{btn.name}}</span>
+        </a>
+        <div class="sidebar-submenu2" *ngIf="showFieldDropdown && btn.type == 'field'">
+          <ul>
+            <li *ngFor="let option of fieldOptions"  dir="rtl">
+              <a (click)="functions(option.value)">
+                <span class="badge badge-pill badge-success">{{ option.label }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>

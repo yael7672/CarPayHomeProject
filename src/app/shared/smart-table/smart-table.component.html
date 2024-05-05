@@ -1,0 +1,65 @@
+<div *ngIf="!isUnder1100">
+    <table class="table table-hover interestedInTable" id={{id}}>
+      <thead>
+        <tr class="titles">
+          <th *ngFor="let th of thArr" scope="col">
+            <ng-container *ngIf="ifSortDown; else sortTableUpp;">
+              <button (click)="sortTableDown(th)">
+                <ng-container>
+                  {{th}}
+                </ng-container>
+                <i class="fa fa-caret-down" *ngIf="!hideSort"></i>
+              </button>
+            </ng-container>
+            <ng-template #sortTableUpp>
+              <button (click)="sortTableUp(th)">
+                <ng-container>
+                  {{th}}
+                </ng-container>
+                <i class="fa fa-caret-up" *ngIf="!hideSort"></i>
+              </button>
+            </ng-template>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
+          (click)="selectedData(colData)" [ngClass]="{
+                    'green-row': colData.score >= 90,
+                    'red-row': colData.score <= 70
+                  }">
+          <ng-container *ngFor="let tableDataKey of tableDataKeys">
+            <td>{{returnColDataByType(colData, tableDataKey)}}</td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  
+  <div *ngIf="isUnder1100">
+    <div class="all-cards">
+      <div class="card" [ngStyle]="{'width': '80%'}"
+        *ngFor="let colData of tableData | paginate: { itemsPerPage: ifShowpagination?ifShowpagination[1]:'', currentPage: p } let i = index"
+        (click)="selectedData(colData)" [ngClass]="{
+          'green-row-card': colData.score >= 90,
+          'red-row-card': colData.score <= 70
+        }">
+        <ul class="list-group list-group-flush">
+          <ng-container *ngFor="let tableDataKey of tableDataKeys; let i = index ;">
+            <li class="list-group-item">
+              <span class="th-arr-card">{{thArr[i]}}: </span>
+              <td> {{returnColDataByType(colData, tableDataKey)}}</td>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="ifShowpagination?ifShowpagination[0]:''">
+    <div *ngIf="tableData?.length > ifShowpagination[1]">
+      <pagination-controls (pageChange)="p = $event" [nextLabel]="'הבא'" [previousLabel]="'הקודם'">
+      </pagination-controls>
+    </div>
+  </ng-container>

@@ -1,0 +1,18 @@
+li {
+    display: flex !important;
+    direction: ltr !important;
+    justify-content: space-between !important;
+}
+
+span.badge.badge-pill.badge-success {
+    background: border-box !important;
+}
+
+.sidebar-submenu2 ul li {
+    display: flex;
+    direction: ltr !important;
+}
+
+.sidebar-submenu2 ul {
+    border-top: 10px;
+}

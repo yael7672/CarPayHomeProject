@@ -1,0 +1,61 @@
+<div class="change-properties">
+  <div class="property">
+    <label for="colorInput">Choose element color:</label>
+    <input type="color" class="form-control" id="colorInput" [(ngModel)]="elementColor"
+      (input)="changeColorE(elementColor)">
+  </div>
+  <!-- <div class="property">
+    <label for="backgroundColorInput">Choose element color:</label>
+    <input type="color" class="form-control" id="backgroundColorInput" [(ngModel)]="elementBackgroundColor"
+      (input)="changeBackgroudColorE(elementBackgroundColor)">
+  </div> -->
+  <div class="property">
+    <label for="sizeInput">Choose element size:</label>
+    <input type="number" class="form-control" id="sizeInput" [(ngModel)]="elementSize"
+      (input)="changeSizeE(elementSize)">
+  </div>
+  <ng-container *ngIf="ifShowEditPropertiesOfFiled">
+
+    <div class="property">
+      <label for="editNameOfFiled"> Input Name:</label>
+      <input class="form-control" id="editNameOfFiled" [(ngModel)]="elementName">
+    </div>
+
+    <div class="button-container">
+      <button type="button" class="btn btn-primary" (click)="setSettingToFiled(elementName)">set Properties</button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="ifShowEditValuesOfFiled">
+    <div class="property">
+      <label for="editTextOfFiled"> Input text:</label>
+      <input class="form-control" id="editTextOfFiled" [(ngModel)]="elementText">
+    </div>
+
+    <div class="property">
+      <label for="editValuesOfFiled"> Input values:</label>
+      <input class="form-control" id="editValuesOfFiled" [(ngModel)]="elementValue">
+    </div>
+
+    <div class="button-container">
+      <button type="button" class="btn btn-primary" (click)="addValuesToFiled(elementText,elementValue)">add
+        values</button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="ifShowSetValuesOfButton">
+    <div class="property">
+      <label for="editApiOfButton">Set API where the form data will be sent:</label>
+      <input id="editApiOfButton" required class="form-control" type="text" [(ngModel)]="apiRequest" name="url"
+        (ngModelChange)="checkHttpAddress()" required pattern="[a-zA-Z0-9\-\.:/#?&%\?=]*$">
+      <div *ngIf="validationError" style="color: red;">כתובת לא תקינה!</div>
+    </div>
+    <div class="property">
+      <label for="editHeaderOfButton">Set header for API:</label>
+      <input class="form-control" required id="editHeaderOfButton" [(ngModel)]="headersRequest"
+        placeholder="{{element.value}}">
+    </div>
+    <div class="button-container">
+      <button type="button" class="btn btn-primary" (click)="sendAllValues(apiRequest,headersRequest)">
+        update data</button>
+    </div>
+  </ng-container>
+</div>

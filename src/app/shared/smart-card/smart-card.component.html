@@ -1,0 +1,18 @@
+<div class="menu">
+    <div class="card card-of-task">
+        <div class="card-body">
+            <h3 class="card-title"> {{title}}
+                <img *ngIf="src" src="{{src}}">
+            </h3>
+            <div class="header">
+                <ng-content select="[header]"></ng-content>
+            </div>
+            <div class="card-content">
+                <ng-content select="[body]"></ng-content>
+            </div>
+            <div class="">
+                <ng-content select="[footer]"></ng-content>
+            </div>
+        </div>
+    </div>
+</div>
