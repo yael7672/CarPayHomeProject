@@ -11,8 +11,6 @@ export class UserService {
   UpdateValuesOfForm(ValuesOfForm: any,apiRequest:any,header:any) {
     debugger
     // const cleanValuesOfForm = ValuesOfForm.map((obj:any) => ({ type: obj.type, value: obj.value }));
-
-    // המרת המערך החדש למחרוזת JSON
     // const cleanValuesOfFormJson = JSON.stringify(cleanValuesOfForm);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     

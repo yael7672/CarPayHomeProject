@@ -19,7 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AddElementComponent } from './add-element/add-element.component';
 import { SmartMenuComponent } from './shared/smart-menu/smart-menu.component';
 import { INgxSelectOptions, NgxSelectModule } from 'ngx-select-ex';
-const CustomSelectOptions: INgxSelectOptions = { // Check the interface for more options
+const CustomSelectOptions: INgxSelectOptions = { 
   optionValueField: 'elementValue',
   optionTextField: 'elementText'
 }

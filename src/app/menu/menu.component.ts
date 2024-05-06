@@ -315,10 +315,9 @@ export class MenuComponent implements AfterViewInit, OnInit {
     });
     this.valuesOfFormToUpdateJson = JSON.stringify(this.valuesOfFormToUpdate, null, 2);
     console.log(this.valuesOfFormToUpdateJson);
-    const cleanedJsonString = this.valuesOfFormToUpdateJson.trim().replace(/(\r\n|\n|\r|\s+)/gm, '');
-
-    const parsedValues = JSON.parse(cleanedJsonString);
-    console.log(parsedValues);
+    // const cleanedJsonString = this.valuesOfFormToUpdateJson.trim().replace(/(\r\n|\n|\r|\s+)/gm, '');
+    // const parsedValues = JSON.parse(cleanedJsonString);
+    // console.log(parsedValues);
 
     this.userService.UpdateValuesOfForm(this.valuesOfFormToUpdateJson, apiRequest, headers).subscribe(
       (res: any) => {

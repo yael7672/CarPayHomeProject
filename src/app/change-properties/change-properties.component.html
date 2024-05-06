@@ -14,7 +14,7 @@
     <input type="number" class="form-control" id="sizeInput" [(ngModel)]="elementSize"
       (input)="changeSizeE(elementSize)">
   </div>
-<!-- 
+  <!-- 
   <div class="property">
   <label for="inputState">choose font family:</label>
   <select id="inputState" class="form-control" [(ngModel)]="elementFontFamily">
@@ -23,7 +23,6 @@
 </div> -->
 
   <ng-container *ngIf="ifShowEditPropertiesOfFiled">
-
     <div class="property">
       <label for="editNameOfFiled"> Input Name:</label>
       <input class="form-control" id="editNameOfFiled" [(ngModel)]="elementName">
@@ -33,6 +32,7 @@
       <button type="button" class="btn btn-primary" (click)="setSettingToFiled(elementName)">set Properties</button>
     </div>
   </ng-container>
+
   <ng-container *ngIf="ifShowEditValuesOfFiled">
     <div class="property">
       <label for="editTextOfFiled"> Input text:</label>
@@ -49,6 +49,7 @@
         values</button>
     </div>
   </ng-container>
+
   <ng-container *ngIf="ifShowSetValuesOfButton">
     <div class="property">
       <label for="editApiOfButton">Set API where the form data will be sent:</label>
