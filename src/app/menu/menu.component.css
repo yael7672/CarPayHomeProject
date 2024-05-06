@@ -87,8 +87,7 @@ canvas {
   direction: ltr;
 }
 
-/*  */
-/*  */
+
 button.fff {
   background-color: pink !important;
   z-index: 1999;
@@ -97,6 +96,5 @@ button.fff {
 
 
 h1 {
-
  text-align: center !important;
 }

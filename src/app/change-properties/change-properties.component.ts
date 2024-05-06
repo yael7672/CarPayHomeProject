@@ -127,8 +127,6 @@ export class ChangePropertiesComponent {
   }
 
   isValidHttpAddress(address: string): boolean {
-    debugger
-    // בודק תקינות כתובת HTTP
     const pattern = /^https?:\/\/.+/i;
     return pattern.test(address);
   }
