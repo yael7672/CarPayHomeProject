@@ -9,7 +9,20 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   UpdateValuesOfForm(ValuesOfForm: any,apiRequest:any,header:any) {
+    debugger
+    // const cleanValuesOfForm = ValuesOfForm.map((obj:any) => ({ type: obj.type, value: obj.value }));
+
+    // המרת המערך החדש למחרוזת JSON
+    // const cleanValuesOfFormJson = JSON.stringify(cleanValuesOfForm);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post<string>(apiRequest, ValuesOfForm , { headers });
+    
+    return this.http.post<any>(apiRequest, ValuesOfForm , { headers });
+
+    
+  }
+
+  
+ GetAllFontFamily() {
+    return this.http.get<any>('https://fonts.google.com/metadata/fonts');
   }
 }

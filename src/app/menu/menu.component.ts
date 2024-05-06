@@ -68,6 +68,8 @@ export class MenuComponent implements AfterViewInit, OnInit {
   imageBase64: any
   fileBase64: any
   elementBackgroundColor: any
+  elementFontFamily: any
+  valuesOfFormToUpdateJson!: any
   constructor(private appService: AppService, public elementStateService: ElementStateService
     , private datePipe: DatePipe, private userService: UserService) {
     this.appService.getNavBar().subscribe(res => {
@@ -132,14 +134,14 @@ export class MenuComponent implements AfterViewInit, OnInit {
       this.showChangeTypeOfField = true
       this.showSetValuesOfFiled = false
       this.ShowEditPropertiesOfFiled = false
-      this.showSetValuesOfButton= false
+      this.showSetValuesOfButton = false
 
     }
     if (elementType == "checkBox" || elementType == "selectBox" || elementType == "multiSelectBox") {
       this.showSetValuesOfFiled = true
       this.ShowEditPropertiesOfFiled = true
       this.showChangeTypeOfField = false
-      this.showSetValuesOfButton= false
+      this.showSetValuesOfButton = false
     }
 
     if (elementType == "button") {
@@ -172,7 +174,9 @@ export class MenuComponent implements AfterViewInit, OnInit {
   onFileChange(event: any) {
     const myFiles = event.target.files;
     this.imagesBeforeUploadArray = [];
+    this.filesBeforeUploadArray = [];
     this.filesSelectedInSelectionButton = [];
+    this.imageSelectedInSelectionButton = [];
     this.appService.readFiles(myFiles)
       .then(filesBase64 => {
         const file = event.target.files[0];
@@ -192,9 +196,8 @@ export class MenuComponent implements AfterViewInit, OnInit {
           for (const fileSelectedInSelectionButton of this
             .filesSelectedInSelectionButton) {
             this.filesBeforeUploadArray.push(fileSelectedInSelectionButton);
-            this.fileBase64 = this.imagesBeforeUploadArray.join('*')
+            this.fileBase64 = this.filesBeforeUploadArray.join('*')
             this.elementsArr[this.serialNumber].value = this.fileBase64
-
           }
         }
       })
@@ -218,15 +221,23 @@ export class MenuComponent implements AfterViewInit, OnInit {
     this.elementsArr[this.serialNumber].elementColor = newColor;
     sessionStorage.setItem("elementsArr", JSON.stringify(this.elementsArr))
   }
+
   updateElementBackgroundColor(element: any, backgroundColor: any) {
+    debugger
     this.elementBackgroundColor = backgroundColor
-    this.elementsArr[this.serialNumber].elementColor = backgroundColor;
+    this.elementsArr[this.serialNumber].elementBackgroundColor = backgroundColor;
     sessionStorage.setItem("elementsArr", JSON.stringify(this.elementsArr))
   }
 
   updateElementSize(element: any, newSize: number) {
     this.elementSize = newSize
     this.elementsArr[this.serialNumber].elementSize = newSize;
+    sessionStorage.setItem("elementsArr", JSON.stringify(this.elementsArr))
+  }
+
+  updateElementFontFamily(element: any, fontFamily: any) {
+    this.elementFontFamily = fontFamily
+    this.elementsArr[this.serialNumber].elementFontFamily = fontFamily;
     sessionStorage.setItem("elementsArr", JSON.stringify(this.elementsArr))
   }
 
@@ -258,7 +269,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
     sessionStorage.setItem("elementsArr", JSON.stringify(this.elementsArr))
   }
 
-  updateValuesOfForm() {
+  updateValuesOfForm(apiRequest: any, headers: any) {
     debugger
     // this.valuesOfFormToUpdate2 = {};
     // for (const item of this.elementsArr) {
@@ -292,15 +303,24 @@ export class MenuComponent implements AfterViewInit, OnInit {
             } else {
               this.valuesOfFormToUpdate.push({
                 type: itemType,
-                value: item['value'] ? item['value'] : ((item['elementValue'] ? item['elementValue'] : item['elementsValues'])? item['elementsValues']:"")
+                value: item['value'] ? item['value'] : ((item['elementValue'] ? item['elementValue'] : item['elementsValues']) ? item['elementsValues'] : "")
               });
             }
           }
         }
       }
     }
-    console.log(this.valuesOfFormToUpdate);
-    this.userService.UpdateValuesOfForm(this.valuesOfFormToUpdate, this.apiRequest, this.headersRequest).subscribe(
+    this.valuesOfFormToUpdate = this.valuesOfFormToUpdate.map((item) => {
+      return { ...item, value: item.value };
+    });
+    this.valuesOfFormToUpdateJson = JSON.stringify(this.valuesOfFormToUpdate, null, 2);
+    console.log(this.valuesOfFormToUpdateJson);
+    const cleanedJsonString = this.valuesOfFormToUpdateJson.trim().replace(/(\r\n|\n|\r|\s+)/gm, '');
+
+    const parsedValues = JSON.parse(cleanedJsonString);
+    console.log(parsedValues);
+
+    this.userService.UpdateValuesOfForm(this.valuesOfFormToUpdateJson, apiRequest, headers).subscribe(
       (res: any) => {
         swal("פרטיך נשמרו בהצלחה!")
       },

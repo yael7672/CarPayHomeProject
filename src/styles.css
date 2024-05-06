@@ -71,6 +71,12 @@ h4 {
   font-weight: 600 !important;
 }
 
+.btn:hover{
+  background-color: rgb(254, 254, 254);
+  color: #ebb18df2;
+
+}
+
 .all-page.pop-up-open {
   overflow: hidden;
   height: 90vh;

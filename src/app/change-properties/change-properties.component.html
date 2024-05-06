@@ -4,16 +4,24 @@
     <input type="color" class="form-control" id="colorInput" [(ngModel)]="elementColor"
       (input)="changeColorE(elementColor)">
   </div>
-  <!-- <div class="property">
-    <label for="backgroundColorInput">Choose element color:</label>
+  <div class="property">
+    <label for="backgroundColorInput">Choose element background-color:</label>
     <input type="color" class="form-control" id="backgroundColorInput" [(ngModel)]="elementBackgroundColor"
       (input)="changeBackgroudColorE(elementBackgroundColor)">
-  </div> -->
+  </div>
   <div class="property">
     <label for="sizeInput">Choose element size:</label>
     <input type="number" class="form-control" id="sizeInput" [(ngModel)]="elementSize"
       (input)="changeSizeE(elementSize)">
   </div>
+<!-- 
+  <div class="property">
+  <label for="inputState">choose font family:</label>
+  <select id="inputState" class="form-control" [(ngModel)]="elementFontFamily">
+    <option *ngFor="let fontFamily of allFontFamilyArr"  (input)="changeFontFamily(elementFontFamily)">{{fontFamily.family}}</option>
+  </select>
+</div> -->
+
   <ng-container *ngIf="ifShowEditPropertiesOfFiled">
 
     <div class="property">
